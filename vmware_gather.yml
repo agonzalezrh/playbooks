@@ -3,7 +3,7 @@
   hosts:  localhost
   become: false
   collections:
-    - vmware
+    - vmware.vmware_vm_info
   vars:
     - vcenter_hostname: portal.vc.opentlc.com
     - vcenter_username: 
