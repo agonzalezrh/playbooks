@@ -7,31 +7,32 @@
     - vcenter_hostname: portal.vc.opentlc.com
   tasks:
     - vmware_guest:
-        hostname: '{{ vcenter_hostname }}'                         # IP del vCenter
-        username: '{{ vcenter_username }}'                         # Usuario de vCenter
-        password: '{{ vcenter_password }}'                         # Password de vCenter
+        hostname: '{{ VMWARE_HOST }}'                         # IP del vCenter
+        username: '{{ VMWARE_USER }}'                         # Usuario de vCenter
+        password: '{{ VMWARE_PASSWORD }}'                         # Password de vCenter
         validate_certs: False
         name: "{{ vm_hostname }}"                                  # Nombre de VM y de como se visualizará en el vCenter
         template: '{{ SO }}'                                       # Nombre de la Plantilla en el vCenter
 
-#        datacenter: "{{ DATACENTER }}"                             # Nombre del Datacenter donde se va a desplegar        
-#        cluster: "{{ CLUSTER }}"                                   # Nombre del Cluster donde se va a desplegar
-#        folder: '{{ FOLDER }}'                                     # Nombre del folder donde se va a desplegar
-        datacenter: SDDC-Datacenter                             # Nombre del Datacenter donde se va a desplegar
-        cluster: Cluster-1                                   # Nombre del Cluster donde se va a desplegar
-        folder: Workloads/sandbox-9l52q                                     # Nombre del folder donde se va a desplegar
+#        datacenter: "{{ DATACENTER }}"                            # Nombre del Datacenter donde se va a desplegar        
+#        cluster: "{{ CLUSTER }}"                                  # Nombre del Cluster donde se va a desplegar
+#        folder: '{{ FOLDER }}'                                    # Nombre del folder donde se va a desplegar
+        datacenter: SDDC-Datacenter                                # Nombre del Datacenter donde se va a desplegar
+        cluster: Cluster-1                                         # Nombre del Cluster donde se va a desplegar
+        folder: Workloads/sandbox-9l52q                            # Nombre del folder donde se va a desplegar
         annotation: 'Servidor desplegado desde Ansible'            # Nota que se quiera colocar en el Servidor desplegado
         disk:
-        - size_gb: '{{ vm_so_disk }}'                                    # Tamaño a asignar al disco del Sistema Operativo
+        - size_gb: '{{ vm_so_disk }}'                              # Tamaño a asignar al disco del Sistema Operativo
           type: thin                                               # Formato del disco thin, thick o eagerzeroedthick 
-#          datastore: 'BB-WAR-CLU01-VSAN'                    # Nombre del Datastore donde se va a desplegar          
-          datastore: 'WorkloadDatastore'                    # Nombre del Datastore donde se va a desplegar
+#          datastore: 'BB-WAR-CLU01-VSAN'                          # Nombre del Datastore donde se va a desplegar          
+          datastore: 'WorkloadDatastore'                           # Nombre del Datastore donde se va a desplegar
         hardware:
-          memory_mb: '{{ vm_ram | int * 1024 }}'                      # Cantidad de Memoria RAM a asignar
-          num_cpus: '{{ vm_cpu }}'                                    # Cantidad de CPUs a asignar
+          memory_mb: '{{ vm_ram | int * 1024 }}'                   # Cantidad de Memoria RAM a asignar
+          num_cpus: '{{ vm_cpu }}'                                 # Cantidad de CPUs a asignar
           scsi: paravirtual                                        # Formato de conector de disco atavez de VMware  
-#        networks:                                                  # Configuracion de RED   
-#        - name: '{{ portgroup }}'                                  # Nombre de la Red a asignar
+        networks:                                                  # Configuracion de RED   
+        - name: VMNetwork                                          # Nombre de la Red a asignar
+        wait_for_ip_address: true
 #          ip: '{{ IP }}'                                           # Dirección IP a asignar    
 #          netmask: '{{ MASK }}'                                    # Mascara de Red a asignar
 #          gateway: '{{ GW }}'                                      # Gateway a asignar
@@ -39,4 +40,3 @@
 #          device_type: vmxnet3                                     #Tipo de Interfaz de Red a asignar
 #          start_connected: True
         state: poweredon                                           # Estado del Servidor luego del despliegue
-#        wait_for_ip_address: yes
