@@ -11,9 +11,9 @@
   tasks:
   - name: Set the state of a virtual machine to poweroff on off
     community.vmware.vmware_guest_powerstate:
-      hostname: "{{ VMWARE_HOST }}"
-      username: "{{ VMWARE_USER }}"
-      password: "{{ VMWARE_PASSWORD }}"
+      hostname: "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
       folder: /SDDC-Datacenter/Workloads/sandbox-9l52q
       name: "{{ vm_guest_name }}"
       state: "{{ vm_state }}"
