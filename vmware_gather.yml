@@ -1,14 +1,13 @@
 ---
 - name: Traer informacion del VmWare
   hosts:  localhost
-  become: fase
+  become: false
   vars:
-    - disk: /dev/vda
-    - disk_number: 2
-    - vgname: vg01
-    - lvname: lv01
-    - lvsize: 200M
-    - directorio: /data1
+    - vcenter_hostname: portal.vc.opentlc.com
+    - vcenter_username: sandbox-9l52q@vc.opentlc.com
+    - vcenter_password: sA,id-DxzBC2
+
+
   tasks:
   - name: Gather all registered virtual machines
     community.vmware.vmware_vm_info:
