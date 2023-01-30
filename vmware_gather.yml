@@ -1,10 +1,22 @@
-- name: Gather all registered virtual machines
-  community.vmware.vmware_vm_info:
-    hostname: '{{ vcenter_hostname }}'
-    username: '{{ vcenter_username }}'
-    password: '{{ vcenter_password }}'
-  delegate_to: localhost
-  register: vminfo
+---
+- name: Traer informacion del VmWare
+  hosts:  localhost
+  become: fase
+  vars:
+    - disk: /dev/vda
+    - disk_number: 2
+    - vgname: vg01
+    - lvname: lv01
+    - lvsize: 200M
+    - directorio: /data1
+  tasks:
+  - name: Gather all registered virtual machines
+    community.vmware.vmware_vm_info:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+    delegate_to: localhost
+    register: vminfo
 
-- debug:
-    var: vminfo.virtual_machines
+  - debug:
+      var: vminfo.virtual_machines
