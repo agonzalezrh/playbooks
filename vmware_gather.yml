@@ -2,6 +2,8 @@
 - name: Traer informacion del VmWare
   hosts:  localhost
   become: false
+  collections:
+    - community.vmware
   vars:
     - vcenter_hostname: portal.vc.opentlc.com
     - vcenter_username: 
