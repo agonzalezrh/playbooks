@@ -4,8 +4,8 @@
   become: false
   vars:
     - vcenter_hostname: portal.vc.opentlc.com
-    - vcenter_username: sandbox-9l52q@vc.opentlc.com
-    - vcenter_password: sA,id-DxzBC2
+    - vcenter_username: 
+    - vcenter_password: 
 
 
   tasks:
