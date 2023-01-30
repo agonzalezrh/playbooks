@@ -7,9 +7,6 @@
     - vcenter_hostname: portal.vc.opentlc.com
   tasks:
     - vmware_guest:
-        hostname: '{{ VMWARE_HOST }}'                         # IP del vCenter
-        username: '{{ VMWARE_USER }}'                         # Usuario de vCenter
-        password: '{{ VMWARE_PASSWORD }}'                         # Password de vCenter
         validate_certs: False
         name: "{{ vm_hostname }}"                                  # Nombre de VM y de como se visualizará en el vCenter
         template: '{{ SO }}'                                       # Nombre de la Plantilla en el vCenter
