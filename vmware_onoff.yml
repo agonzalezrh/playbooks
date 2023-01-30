@@ -1,0 +1,20 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  collections:
+    - community.vmware
+  tasks:
+  - name: Set the state of a virtual machine to poweroff on off
+    community.vmware.vmware_guest_powerstate:
+      hostname: "{{ VMWARE_HOST }}"
+      username: "{{ VMWARE_USER }}"
+      password: "{{ VMWARE_PASSWORD }}"
+      folder: /SDDC-Datacenter/Workloads/sandbox-9l52q
+      name: "{{ vm_guest_name }}"
+      state: "{{ vm_state }}"
+    delegate_to: localhost
+    register: deploy  
+  
+  - name: Print the generated password
+    debug:
+    msg: "The Output is {{ deploy }}"
