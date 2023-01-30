@@ -17,4 +17,4 @@
   
   - name: Print the generated password
     debug:
-    msg: "The Output is {{ deploy }}"
+      msg: "The Output is {{ deploy }}"
