@@ -1,0 +1,35 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:     
+  tasks:
+    - vmware_guest:
+        hostname: "{{ host }}"                                     # IP del vCenter
+        username: 'xxxxxxx@cscsmart.com'                 # Usuario de vCenter
+        password: 'xxxx'                                    # Password de vCenter
+        validate_certs: False
+        name: "{{ HOSTNAME }}"                                     # Nombre de VM y de como se visualizará en el vCenter
+        #content_library: 'ContentLibrary-TOCA'
+        template: '{{ SO }}'                                       # Nombre de la Plantilla en el vCenter
+        datacenter: "{{ DATACENTER }}"                             # Nombre del Datacenter donde se va a desplegar
+        cluster: "{{ CLUSTER }}"                                   # Nombre del Cluster donde se va a desplegar
+        folder: '{{ FOLDER }}'                                     # Nombre del folder donde se va a desplegar
+        annotation: 'Servidor desplegado desde Ansible'            # Nota que se quiera colocar en el Servidor desplegado
+        disk:
+        - size_gb: '{{ DISK }}'                                    # Tamaño a asignar al disco del Sistema Operativo
+          type: thin                                               # Formato del disco thin, thick o eagerzeroedthick 
+          datastore: 'BB-WAR-CLU01-VSAN'                    # Nombre del Datastore donde se va a desplegar
+        hardware:
+          memory_mb: '{{ RAM | int * 1024 }}'                      # Cantidad de Memoria RAM a asignar
+          num_cpus: '{{ CPU }}'                                    # Cantidad de CPUs a asignar
+          scsi: paravirtual                                        # Formato de conector de disco atavez de VMware  
+        networks:                                                  # Configuracion de RED   
+        - name: '{{ portgroup }}'                                  # Nombre de la Red a asignar
+          ip: '{{ IP }}'                                           # Dirección IP a asignar    
+          netmask: '{{ MASK }}'                                    # Mascara de Red a asignar
+          gateway: '{{ GW }}'                                      # Gateway a asignar
+          dns_servers: '{{ DNS }}'                                 # Dirección (es) IP de los DNS a asignar
+          device_type: vmxnet3                                     #Tipo de Interfaz de Red a asignar
+          start_connected: True
+        state: poweredon                                           # Estado del Servidor luego del despliegue
+        wait_for_ip_address: yes
